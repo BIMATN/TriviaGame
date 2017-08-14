@@ -1,0 +1,16 @@
+body
+{
+	background-color: orange !important;
+}
+
+.container
+{
+	background-color: red !important;
+	border: 5px solid blue;
+}
+
+.jumbotron
+{
+	background-color: lightgreen;
+	color: brown;
+}
