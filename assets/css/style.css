@@ -1,21 +1,43 @@
+@font-face
+{
+	font-family: metalGear;
+	src: url("../fonts/METAG___.TTF");
+}
+
 body
 {
-	background-color: orange !important;
+	background-color: black !important;
 }
 
 .container
 {
-	background-color: red !important;
-	border: 5px solid blue;
-}
-
-.jumbotron
-{
-	background-color: lightgreen;
-	color: brown;
+	background-color: white !important;
+	border: 5px solid silver;
+	background-image: url(../images/metalGearBackground.jpg); /*https://i.imgur.com/TD8WWgR.jpg*/
 }
 
 #time
 {
 	font-size: 2em !important;
+}
+
+#jumboLogo
+{
+	max-width: 100%;
+	max-height: 100%;
+	margin: 0;
+}
+
+#triviaTitle
+{
+	color: red;
+	font-family: metalGear;
+	margin: 15px 0 10px 0;
+}
+
+#start
+{
+	margin-top: 20px;
+	height: 100px;
+	width: 300px;
 }

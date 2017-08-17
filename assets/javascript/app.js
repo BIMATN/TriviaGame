@@ -3,13 +3,18 @@
 /*----------------------------------------------------------------------------------//Variables//-------------------------------------------------------------------------------------------*/
    
   var number = 30;//Our starting Count number
-  var intervalId;
-  var indexPosition=0;
-  var userResponseA;
+  var intervalId; //our variable for time tracking
+  var indexPosition=0; //our variable for question object
+  var userResponseA; //our variables for user choice
+  var userResponseB;
+  var userResponseC;
+  var userResponseD;
+  var wrongAnswers=0; //our variable for tracking incorrect answer quantity
+  var rightAnswers=0; //our variable for tracking correct answer quantity
 
 //Array of Questions and Answers as Objects
 
-  var qanda = 
+  var qanda = //each object still needs a gif, music, picture, etc... and a statement saying the correct answer is blah blah
   [
     question1 = 
     {
@@ -103,11 +108,12 @@
     }
   ]
 
-  var html1 = { html: '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio><label><input name=optradio type=radio id=ansA>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio id=ansB>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio id=ansC>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio id=ansD>'+qanda[indexPosition].ansD+'</label></div></ul>'}
-  var htmlRight = { html: '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Right!!!!!!</h3></div>'}
-  var htmlWrong = { html: '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Wrong!!!!!!</h3></div>'}
-  var htmlTimeout = { html: '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Out of Time!!!!!!</h3></div>'}
-  var htmlFinal = { html: '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Final RESULTS!!!!!!</h3></div>'}
+  var html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+  var htmlRight = '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Right!!!!!!</h3></div>';
+  var htmlWrong = '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Wrong!!!!!!</h3></div>';
+  var htmlTimeout = '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Out of Time!!!!!!</h3></div>';
+  var htmlFinal = '<div class=panel-heading><p class="panel-title text-center">Quiz Complete!</div><div class="panel-body"><h3>Questions Right: '+rightAnswers+'</h3><h3>Questions Wrong: '+wrongAnswers+'</h3></div>';
+
 
 /*----------------------------------------------------------------------------------//Functions//-------------------------------------------------------------------------------------------*/
 
@@ -125,7 +131,7 @@
       $("#time").html("Time Remaining: 00:" + number);//update time element with new value
     }
 
-    if (number === 0) 
+    if (number === -1) 
     {
       timeOut(); //run response to countdown completion
     }
@@ -139,9 +145,9 @@
     //Load next question and answer
     indexPosition++; //update to next question object
     number=30;
-    html1.html = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio><label><input name=optradio type=radio id=ansA>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio id=ansB>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio id=ansC>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio id=ansD>'+qanda[indexPosition].ansD+'</label></div></ul>';
-    $("#triviaZone").html(htmlTimeout.html); //results page
-    setTimeout(function(){ $("#triviaZone").html(html1.html); }, 5000); //Load next question after 5 seconds - this NEEDS function pretext or else it fires immediately and errors
+    html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+    $("#triviaZone").html(htmlTimeout); //results page
+    setTimeout(function(){ $("#triviaZone").html(html1); }, 5000); //Load next question after 5 seconds - this NEEDS function pretext or else it fires immediately and errors
     setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 5000); //countdown begins after 5 second delay to allow for page to reload
     setTimeout(function(){ userResponse()}, 5000); //user response is received
   }
@@ -210,9 +216,10 @@
     clearInterval(intervalId);
     number=30;
     indexPosition++;
-    html1.html = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio><label><input name=optradio type=radio id=ansA>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio id=ansB>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio id=ansC>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio id=ansD>'+qanda[indexPosition].ansD+'</label></div></ul>';
-    $("#triviaZone").html(htmlRight.html); //Load results page
-    setTimeout(function(){ $("#triviaZone").html(html1.html); }, 5000);
+    rightAnswers++;
+    html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+    $("#triviaZone").html(htmlRight); //Load results page
+    setTimeout(function(){ $("#triviaZone").html(html1); }, 5000);
     setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 5000); //countdown begins after 5 second delay to allow for page to reload
     setTimeout(function(){ userResponse()}, 5000); //user response is received
   }
@@ -223,11 +230,20 @@
     clearInterval(intervalId);
     number=30;
     indexPosition++;
-    html1.html = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio><label><input name=optradio type=radio id=ansA>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio id=ansB>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio id=ansC>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio id=ansD>'+qanda[indexPosition].ansD+'</label></div></ul>';
-    $("#triviaZone").html(htmlWrong.html); //Load results page
-    setTimeout(function(){ $("#triviaZone").html(html1.html); }, 5000);
+    wrongAnswers++;
+    html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+    $("#triviaZone").html(htmlWrong); //Load results page
+    setTimeout(function(){ $("#triviaZone").html(html1); }, 5000);
     setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 5000); //countdown begins after 5 second delay to allow for page to reload
     setTimeout(function(){ userResponse()}, 5000); //user response is received
+  }
+
+  //Function for game Begin
+  function begin()
+  {
+    $("#triviaZone").html(html1); //Load first question
+    intervalId = setInterval(decrement, 1000); //countdown begins
+    userResponse(); //user response is received
   }
 
 /*----------------------------------------------------------------------------------//Game Start//-------------------------------------------------------------------------------------------*/
@@ -235,13 +251,5 @@
 
 $(document).ready(function()
 {//beginning of document ready
-  //add start logic here
-  $("#triviaZone").html(html1.html); //Load first question
-  intervalId = setInterval(decrement, 1000); //countdown begins
-  var testA = $("#ansA").text();
-  var testB = $("#ansB").text();
-  console.log(testA); //test shows there is nothing inside of the element...why?
-  console.log(testB);
-  console.log(qanda[0].ansA);
-  userResponse(); //user response is received
+  $("#start").click(begin);
 });//end of document ready
