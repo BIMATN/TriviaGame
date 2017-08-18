@@ -27,16 +27,22 @@
 		</div>
 	</div>	
 	<div class = "row">
-		<div class = "col-xs-8 col-xs-offset-2">
-			<div class="panel panel-primary" id="triviaZone">
+		<div class = "col-xs-8 col-xs-offset-2" id="triviaZone">
+			<div class = "col-xs-12">
 				<div> 
-					<button type="button" class="btn btn-danger center-block" id="start"><h1>Select To Begin</h1></button>
+					<h4 class = "text-center" id=start>PRESS SPACEBAR TO START</h4>
 				</div>
 				<br>
 				<br>
 				<div>
-				  <audio controls autoplay class="center-block">
+				  <audio controls autoplay class="center-block" id="menuMusic">
 					  <source src="assets/images/metalGearMenuTheme.mp3" type="audio/mpeg">
+					  Your browser does not support the audio element.
+				  </audio>
+				</div>
+				<div>
+				  <audio class="center-block" id="gunshot">
+					  <source src="assets/images/metalGearGunshotTrim.mp3" type="audio/mpeg">
 					  Your browser does not support the audio element.
 				  </audio>
 				</div>

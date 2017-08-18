@@ -14,6 +14,7 @@ body
 	background-color: white !important;
 	border: 5px solid silver;
 	background-image: url(../images/metalGearBackground.jpg); /*https://i.imgur.com/TD8WWgR.jpg*/
+	margin-top: 5%;
 }
 
 #time
@@ -25,7 +26,8 @@ body
 {
 	max-width: 100%;
 	max-height: 100%;
-	margin: 0;
+	margin: 5% 0 0 0;
+	border: 2px solid green;
 }
 
 #triviaTitle
@@ -33,11 +35,13 @@ body
 	color: red;
 	font-family: metalGear;
 	margin: 15px 0 10px 0;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; /*Adds outline to font*/
 }
 
 #start
 {
-	margin-top: 20px;
-	height: 100px;
-	width: 300px;
+	font-family: arial;
+	font-weight: bold;
+	color: red;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; /*Adds outline to font*/
 }

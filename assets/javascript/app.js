@@ -108,13 +108,6 @@
     }
   ]
 
-  var html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
-  var htmlRight = '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Right!!!!!!</h3></div>';
-  var htmlWrong = '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Wrong!!!!!!</h3></div>';
-  var htmlTimeout = '<div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Out of Time!!!!!!</h3></div>';
-  var htmlFinal = '<div class=panel-heading><p class="panel-title text-center">Quiz Complete!</div><div class="panel-body"><h3>Questions Right: '+rightAnswers+'</h3><h3>Questions Wrong: '+wrongAnswers+'</h3></div>';
-
-
 /*----------------------------------------------------------------------------------//Functions//-------------------------------------------------------------------------------------------*/
 
   //TIME COUNTDOWN FUNCTIONS and TIMEOUT FUNCTIONS
@@ -140,16 +133,27 @@
   function timeOut() //run out of time function
   {
     clearInterval(intervalId);
-    alert("Time Up!");
     //Load correct answer info - have time pass    
     //Load next question and answer
     indexPosition++; //update to next question object
     number=30;
-    html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
-    $("#triviaZone").html(htmlTimeout); //results page
-    setTimeout(function(){ $("#triviaZone").html(html1); }, 5000); //Load next question after 5 seconds - this NEEDS function pretext or else it fires immediately and errors
-    setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 5000); //countdown begins after 5 second delay to allow for page to reload
-    setTimeout(function(){ userResponse()}, 5000); //user response is received
+    if (indexPosition>9)
+    {
+      var htmlTimeout = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Out of Time!!!!!!</h3></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearGameOver.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      $("#triviaZone").html(htmlTimeout); //Load results page
+      var htmlFinal = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center">Quiz Complete!</div><div class="panel-body"><h3>Questions Right: '+rightAnswers+'</h3><h3>Questions Wrong: '+wrongAnswers+'</h3><button id="restart">Restart</button></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearMainTheme.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      setTimeout(function(){ $("#triviaZone").html(htmlFinal); }, 8000);
+      setTimeout(function(){restart(); }, 8500);
+    }
+    else
+    {
+      var htmlTimeout = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Out of Time!!!!!!</h3></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearGameOver.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      $("#triviaZone").html(htmlTimeout); //results page
+      var html1 = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div></div></div>';
+      setTimeout(function(){ $("#triviaZone").html(html1); }, 8000); //Load next question after 5 seconds - this NEEDS function pretext or else it fires immediately and errors
+      setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 8000); //countdown begins after 5 second delay to allow for page to reload
+      setTimeout(function(){ userResponse()}, 8000); //user response is received
+    }
   }
 
   //FUNCTIONS FOR CHECKING ANSWERS
@@ -217,11 +221,23 @@
     number=30;
     indexPosition++;
     rightAnswers++;
-    html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
-    $("#triviaZone").html(htmlRight); //Load results page
-    setTimeout(function(){ $("#triviaZone").html(html1); }, 5000);
-    setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 5000); //countdown begins after 5 second delay to allow for page to reload
-    setTimeout(function(){ userResponse()}, 5000); //user response is received
+    if (indexPosition>9)
+    {
+      var htmlRight = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Right!!!!!!</h3></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearLevelComplete.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      $("#triviaZone").html(htmlRight); //Load results page
+      var htmlFinal = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center">Quiz Complete!</div><div class="panel-body"><h3>Questions Right: '+rightAnswers+'</h3><h3>Questions Wrong: '+wrongAnswers+'</h3><button id="restart">Restart</button></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearMainTheme.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      setTimeout(function(){ $("#triviaZone").html(htmlFinal); }, 8000);
+      setTimeout(function(){restart(); }, 8500);
+    }
+    else
+    {
+      var htmlRight = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Right!!!!!!</h3></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearLevelComplete.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      $("#triviaZone").html(htmlRight); //Load results page
+      var html1 = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div></div></div>';
+      setTimeout(function(){ $("#triviaZone").html(html1); }, 8000);
+      setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 8000); //countdown begins after 5 second delay to allow for page to reload
+      setTimeout(function(){ userResponse()}, 8000); //user response is received
+    }
   }
 
   //function for responding to wrong answer
@@ -231,19 +247,43 @@
     number=30;
     indexPosition++;
     wrongAnswers++;
-    html1 = '<div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
-    $("#triviaZone").html(htmlWrong); //Load results page
-    setTimeout(function(){ $("#triviaZone").html(html1); }, 5000);
-    setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 5000); //countdown begins after 5 second delay to allow for page to reload
-    setTimeout(function(){ userResponse()}, 5000); //user response is received
+    if (indexPosition>9)
+    {
+      var htmlWrong = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Wrong!!!!!!</h3></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearGameOver.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      $("#triviaZone").html(htmlWrong); //Load results page
+      var htmlFinal = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center">Quiz Complete!</div><div class="panel-body"><h3>Questions Right: '+rightAnswers+'</h3><h3>Questions Wrong: '+wrongAnswers+'</h3><button id="restart">Restart</button></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearMainTheme.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      setTimeout(function(){ $("#triviaZone").html(htmlFinal); }, 8000);
+      setTimeout(function(){restart(); }, 8500);
+    }
+    else
+    {
+      var htmlWrong = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center"> This is the results page! </div><div class="panel-body"><h3>Wrong!!!!!!</h3></div></div></div><div><audio autoplay class=center-block controls><source src=assets/images/metalGearGameOver.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div>';
+      $("#triviaZone").html(htmlWrong); //Load results page
+      var html1 = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div></div></div>';
+      setTimeout(function(){ $("#triviaZone").html(html1); }, 8000);
+      setTimeout(function(){ intervalId = setInterval(decrement, 1000); }, 8000); //countdown begins after 5 second delay to allow for page to reload
+      setTimeout(function(){ userResponse()}, 8000); //user response is received
+    }
   }
 
   //Function for game Begin
   function begin()
   {
+    var html1 = '<div class = "col-xs-12"><div class="panel panel-primary"><div class=panel-heading><p class="panel-title text-center" id=time>Time Remaining: 00:30</div><div class=panel-body><h3>'+qanda[indexPosition].question+'</h3></div><ul class="center-block list-group"><li class=list-group-item><div class=radio id=ansA><label><input name=optradio type=radio>'+qanda[indexPosition].ansA+'</label></div><li class=list-group-item><div class=radio id=ansB><label><input name=optradio type=radio>'+qanda[indexPosition].ansB+'</label></div><li class=list-group-item><div class=radio id=ansC><label><input name=optradio type=radio>'+qanda[indexPosition].ansC+'</label></div><li class=list-group-item><div class=radio id=ansD><label><input name=optradio type=radio>'+qanda[indexPosition].ansD+'</label></div></ul><div><audio autoplay class=center-block controls><source src=assets/images/metalGearEncounter.mp3 type=audio/mpeg>Your browser does not support the audio element.</audio></div></div></div>';
     $("#triviaZone").html(html1); //Load first question
     intervalId = setInterval(decrement, 1000); //countdown begins
     userResponse(); //user response is received
+  }
+
+  //Function for game restart
+  function restart()
+  {
+    $("#restart").on("click", function(){
+      var wrongAnswers=0; //our variable for tracking incorrect answer quantity
+      var rightAnswers=0; //our variable for tracking correct answer quantity
+      var indexPosition=0;
+      begin();
+    });
   }
 
 /*----------------------------------------------------------------------------------//Game Start//-------------------------------------------------------------------------------------------*/
@@ -251,5 +291,13 @@
 
 $(document).ready(function()
 {//beginning of document ready
-  $("#start").click(begin);
+  $(window).keypress(function (e) {
+    if (e.keyCode === 0 || e.keyCode === 32) {
+      e.preventDefault()
+      console.log('Space pressed')
+      $("#menuMusic")[0].pause();
+      $("#gunshot")[0].play();
+      setTimeout(function(){ begin()}, 2000);
+    }
+  })
 });//end of document ready
