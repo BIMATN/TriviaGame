@@ -310,21 +310,25 @@
 $(document).ready(function()
 {//beginning of document ready
   //listening for spacebar command to start game
+  var keyPressCount=0; //to prevent multiple clicks or spacebars
   $(window).keypress(function (e) {
-    if (e.keyCode === 0 || e.keyCode === 32) {
+    if ((e.keyCode === 0 || e.keyCode === 32)&&(keyPressCount<1)) {
       e.preventDefault()
       console.log('Space pressed')
       $("#menuMusic")[0].pause();
       $("#gunshot")[0].play();
+      keyPressCount++;
       setTimeout(function(){ begin()}, 2000);
     }
   })
   //listening for mouse click to start game (for the mobile)
   $(window).click(function (e) {
+      if(keyPressCount<1){
       e.preventDefault()
       console.log('Mouse click')
       $("#menuMusic")[0].pause();
       $("#gunshot")[0].play();
-      setTimeout(function(){ begin()}, 2000);
+      keyPressCount++;
+      setTimeout(function(){ begin()}, 2000);}
   })
 });//end of document ready
