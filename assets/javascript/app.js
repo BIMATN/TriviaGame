@@ -143,8 +143,7 @@
   function timeOut() //run out of time function
   {
     clearInterval(intervalId);
-    //Load correct answer info - have time pass    
-    //Load next question and answer
+    wrongAnswers++;
     indexPosition++; //update count to test for final state
     number=30;
     if (indexPosition>9)
@@ -310,6 +309,7 @@
 
 $(document).ready(function()
 {//beginning of document ready
+  //listening for spacebar command to start game
   $(window).keypress(function (e) {
     if (e.keyCode === 0 || e.keyCode === 32) {
       e.preventDefault()
@@ -318,5 +318,13 @@ $(document).ready(function()
       $("#gunshot")[0].play();
       setTimeout(function(){ begin()}, 2000);
     }
+  })
+  //listening for mouse click to start game (for the mobile)
+  $(window).click(function (e) {
+      e.preventDefault()
+      console.log('Mouse click')
+      $("#menuMusic")[0].pause();
+      $("#gunshot")[0].play();
+      setTimeout(function(){ begin()}, 2000);
   })
 });//end of document ready
