@@ -6,14 +6,18 @@
 
 body
 {
-	background-color: black !important;
+	background-image: url("../images/metalGearBackground.jpg");
 }
 
 .container
 {
 	background-color: white !important;
 	border: 5px solid silver;
-	background-image: url(../images/metalGearBackground.jpg); /*https://i.imgur.com/TD8WWgR.jpg*/
+	background-image: url(../images/metalGearBackground2.jpg); /*https://i.imgur.com/TD8WWgR.jpg*/ /*https://static.giantbomb.com/uploads/original/13/134184/2230689-mgs___ps1.jpg*/
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-color: black !important;
 	margin-top: 5%;
 }
 
@@ -30,7 +34,16 @@ body
 	border: 2px solid green;
 }
 
-#triviaTitle
+#triviaTitle1
+{
+	font-size: 6em;
+	color: red;
+	font-family: metalGear;
+	margin: 15px 0 10px 0;
+	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; /*Adds outline to font*/
+}
+
+#triviaTitle2
 {
 	color: red;
 	font-family: metalGear;
@@ -44,4 +57,9 @@ body
 	font-weight: bold;
 	color: red;
 	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; /*Adds outline to font*/
+}
+
+.list-group
+{
+	background-image: url(../images/metalGearBackground2.jpg);
 }
